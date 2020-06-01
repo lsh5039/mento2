@@ -7,7 +7,7 @@
 <title>회원가입 페이지</title>
 </head>
 <body>
-	<form method="post" action="/join/page">
+	<form method="get" action="/join/page">
 		id : <input type="text" name="id"><br>
 		pw : <input type="password" name="pw"><br>
 		<input type="submit" value="가입">

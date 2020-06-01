@@ -68,4 +68,32 @@ public class BoardDAO {
 		return list;
 		
 	}
+	
+	//단권조회, 특정 유저 1명의 정보만 리턴받는 메서드
+	public static BoardVO getOne(int pk) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from user2 where pk = ? ";
+		BoardVO vo = new BoardVO();//담을 그릇을 만든다.
+		
+		try {
+			con = Conn.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, pk);
+			rs = ps.executeQuery();
+			if(rs.next()) {//그릇에 값 셋팅
+				vo.setPk(rs.getInt("pk"));
+				vo.setId(rs.getString("id"));
+				vo.setPw(rs.getString("pw"));
+				vo.setName(rs.getString("name"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			Conn.close(con, ps, rs);
+		}
+		return vo;//그릇 리턴
+	}
 }

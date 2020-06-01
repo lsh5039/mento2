@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lsh.mento2.board.db.BoardDAO;
+
+
 
 @WebServlet("/user/list")
 public class UserListSev extends HttpServlet {
@@ -18,7 +21,7 @@ public class UserListSev extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/board/boardUserList.jsp");
 		//모든 회원 정보를 list담에 페이지에 뿌려준다.
-		
+		request.setAttribute("list", BoardDAO.getList());
 			
 		
 		rd.forward(request, response);
