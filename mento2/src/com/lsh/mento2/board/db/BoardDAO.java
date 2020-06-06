@@ -96,4 +96,49 @@ public class BoardDAO {
 		}
 		return vo;//그릇 리턴
 	}
+	
+	public static int userDel(BoardVO param) {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "delete from user2 where pk = ? ";
+		
+		try {
+			con = Conn.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getPk());
+			result = ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Conn.close(con, ps);
+		}
+		return result;
+	}
+	
+	public static void userUpd(BoardVO param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "update user2 set id=?, pw=?, name=? where pk = ?";
+		
+		try {
+			con = Conn.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getId());
+			ps.setString(2, param.getPw());
+			ps.setString(3, param.getName());
+			ps.setInt(4, param.getPk());
+			ps.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Conn.close(con, ps);
+		}
+		
+		
+	}
+	
+	
+	
 }

@@ -26,12 +26,17 @@ public class DetailSev extends HttpServlet {
 		String pk	= request.getParameter("pk");
 		
 		if(pk != null) {//정상경로 라면 무조건 pk가 널이 아니다.
-			int intPk = Integer.parseInt(pk);//String을 int로 파싱
+			int intPk =Util.parseToInt(pk, -1);//String을 int로 파싱
+				if(intPk == -1) {//비정상경로 진입자라면  user/list로 보냄
+					response.sendRedirect("/user/list");
+					return;
+				}
 			
 			request.setAttribute("one", BoardDAO.getOne(intPk));
 			rd.forward(request, response);
 			return;//리턴을 안하면 아래 로직이 수행되면서 오류가 발생할 수 있다. 무조건 페이지 이동관련해서는 return으로 마무리
 		}
+		
 		//비정상 경로에 대한 예외처리
 		response.sendRedirect("/user/list");
 		

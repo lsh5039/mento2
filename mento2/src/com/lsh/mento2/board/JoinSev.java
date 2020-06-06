@@ -44,6 +44,7 @@ public class JoinSev extends HttpServlet {
 		
 		
 		BoardDAO.joinUser(vo);
+		response.sendRedirect("/user/list");
 		//mvc 패턴 젤 상용화 되어있다.
 		//m : model 
 		//v : view 보이는 곳
